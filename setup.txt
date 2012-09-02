@@ -3,8 +3,10 @@ streaming-hive-R
 Tutorial on using R functions for MapReduce in Hadoop Hive. 
 
 ### In R
-load(url('https://www.dropbox.com/sh/czicmdgeciugh2g/8E_eqT0osY/hive_df.Rdata'))
+load(url('http://dl.dropbox.com/u/6132890/hive_df.Rdata'))
+
 ### write file as demo.txt to directory where you access Hadoop.
+write.table(hive.df, file = '/directory/demo.txt', quote=F, sep = '\t', row.names=F, col.names =F)
 
 ### In Hadoop
 hadoop dfs -mkdir /user/tabraham/demo
@@ -17,7 +19,7 @@ hive
 # Now in hive create table
 
 DROP TABLE IF EXISTS my_hive_r_demo;
-CREATE EXTERNAL TABLE my_hive_r_demo(users int, rating double)
+CREATE EXTERNAL TABLE my_hive_r_demo(users int, rating double, grp string)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' 
 STORED AS TEXTFILE
 LOCATION '/user/tabraham/demo/';
@@ -27,14 +29,14 @@ LOCATION '/user/tabraham/demo/';
 set hive.cli.print.header=true; select * from my_hive_r_demo limit 10;
 
 # Should see this output
-users    rating
-1        7.50102978077378
-1        8.16001579613901
-1        8.2207013654759
-1        8.08969763594036
-1        8.02185649420374
-1        7.32446772249964
-1        7.99874786335045
-1        7.80794715362293
-1        7.5859102184561
-1        8.02276625313363
+users    rating   grp
+1        7.50102978077378       A
+1        8.16001579613901       A
+1        8.2207013654759        A
+1        8.08969763594036       A
+1        8.02185649420374       A
+1        7.32446772249964       A
+1        7.99874786335045       A
+1        7.80794715362293       A
+1        7.5859102184561        A
+1        8.02276625313363       A
